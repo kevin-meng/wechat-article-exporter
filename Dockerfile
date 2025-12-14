@@ -12,8 +12,12 @@ WORKDIR /app
 
 # 复制 package.json 和 lock 文件，安装依赖
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --production=true && yarn cache clean
 
+# 【关键】使用淘宝镜像安装依赖 + 清理缓存
+RUN yarn config set registry https://registry.npmmirror.com --global && \
+    yarn install --frozen-lockfile --production=true && \
+    yarn cache clean
+    
 # 复制源代码
 COPY . .
 
