@@ -1,6 +1,9 @@
 # 编译层
 FROM node:22-alpine AS build-env
 
+# 添加镜像源适合中国宝宝
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+
 # 安装 Yarn（Alpine 包管理器方式，轻量）
 RUN apk add --no-cache yarn
 
