@@ -26,7 +26,8 @@ ENV NODE_ENV=production \
     NITRO_KV_DRIVER=fs \
     NITRO_KV_BASE=.data/kv
 
-RUN yarn build
+# 避免OOM错误
+RUN NODE_OPTIONS=--max-old-space-size=4096 yarn build   # ← 只在这里 build
 
 
 # 运行时层
